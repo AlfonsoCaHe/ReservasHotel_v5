@@ -18,7 +18,7 @@ public class Huesped implements Comparable<Huesped> {
     private String dni;
     private LocalDate fechaNacimiento;
 
-    /*Crea el constructor con par√°metros que har√° uso de los m√©todos de modificaci√≥n.*/
+    /*Crea el constructor con par·metros que har· uso de los mÈtodos de modificaciÛn.*/
     public Huesped(String nombre, String dni, String correo, String telefono, LocalDate fechaNacimiento){
         try {
             setNombre(nombre);
@@ -40,38 +40,38 @@ public class Huesped implements Comparable<Huesped> {
             this.dni = huesped.getDni();
             this.fechaNacimiento = huesped.getFechaNacimiento();
         }catch(NullPointerException ne){
-            throw new NullPointerException("ERROR: No es posible copiar un hu√©sped nulo.");
+            throw new NullPointerException("ERROR: No es posible copiar un huÈsped nulo.");
         }
 
     }
 
     /*
-    Este m√©todo debe normalizar un nombre eliminando caracteres en blanco de sobra y poniendo en may√∫sculas la primera letra de
-    cada palabra y en min√∫sculas las dem√°s.*/
+    Este mÈtodo debe normalizar un nombre eliminando caracteres en blanco de sobra y poniendo en may˙sculas la primera letra de
+    cada palabra y en min˙sculas las dem·s.*/
     private String formateaNombre(String nombre){
         nombre = nombre.trim();//Primero limpiamos los espacios en blanco al principio y al final
         String nombreformateado = "";//Creamos una variable que nos permita almacenar el nombre correctamente formateado
         String[] arrayauxiliar = nombre.split("\s");
         for(int i = 0; i < arrayauxiliar.length; i++) {//Recorremos cada una de las palabras y establecemos su formato correcto
             if(arrayauxiliar[i] != ""){//Eliminamos los espacios adicionales
-                String auxiliarminus = arrayauxiliar[i].toLowerCase();//Todas las letras pasan a ser min√∫sculas
-                String auxiliarmayus = arrayauxiliar[i].toUpperCase();//Todas las letras may√∫sculas
-                nombreformateado += auxiliarminus.replaceFirst(".", "" + auxiliarmayus.charAt(0)) + " ";//Sustituimos la primera letra de la cadena de min√∫sculas por la letra may√∫scula de la cadena de may√∫sculas y a√±adimos un espacio para separar las palabras.
+                String auxiliarminus = arrayauxiliar[i].toLowerCase();//Todas las letras pasan a ser min˙sculas
+                String auxiliarmayus = arrayauxiliar[i].toUpperCase();//Todas las letras may˙sculas
+                nombreformateado += auxiliarminus.replaceFirst(".", "" + auxiliarmayus.charAt(0)) + " ";//Sustituimos la primera letra de la cadena de min˙sculas por la letra may˙scula de la cadena de may˙sculas y aÒadimos un espacio para separar las palabras.
             }
         }
-        nombreformateado = nombreformateado.trim();//Reformateamos para eliminar el √∫ltimo caracter espacio
-        if(nombreformateado.equals(""))//Si al formatear el nombre, obtenemos una cadena vac√≠a
-            throw new IllegalArgumentException("ERROR: El nombre de un hu√©sped no puede estar vac√≠o.");
+        nombreformateado = nombreformateado.trim();//Reformateamos para eliminar el ˙ltimo caracter espacio
+        if(nombreformateado.equals(""))//Si al formatear el nombre, obtenemos una cadena vacÌa
+            throw new IllegalArgumentException("ERROR: El nombre de un huÈsped no puede estar vacÌo.");
         return nombreformateado;
     }
 
-    /*Este m√©todo har√° uso de los grupos de las expresiones regulares (para ello has debido definir la expresi√≥n regular con grupos)
-     para quedarse con el n√∫mero por un lado y con la letra por otro. Para saber si la letra es v√°lida puedes seguir las
+    /*Este mÈtodo har· uso de los grupos de las expresiones regulares (para ello has debido definir la expresiÛn regular con grupos)
+     para quedarse con el n˙mero por un lado y con la letra por otro. Para saber si la letra es v·lida puedes seguir las
      instrucciones del siguiente enlace: Comprobar letra dni.*/
     private boolean comprobarLetraDni(String dni){
         boolean valido = false;
 
-        Pattern patron = Pattern.compile(ER_DNI);//Creamos un patron mediante una expresi√≥n regular por grupos
+        Pattern patron = Pattern.compile(ER_DNI);//Creamos un patron mediante una expresiÛn regular por grupos
         Matcher acomplamiento = patron.matcher(dni);
 
         String valor = null;//Creamos una variable para guardar el primer grupo
@@ -82,10 +82,10 @@ public class Huesped implements Comparable<Huesped> {
             letra = acomplamiento.group(2);
         }
 
-        int valorletra = 0;//Creamos una variable auxiliar para calcular la suma de los d√≠gitos del DNI
+        int valorletra = 0;//Creamos una variable auxiliar para calcular la suma de los dÌgitos del DNI
         valorletra = Integer.parseInt(valor);
 
-        valorletra = valorletra % 23;//Realizamos el c√°lculo del m√≥dulo sobre 23 para comprobar que la letra coincida
+        valorletra = valorletra % 23;//Realizamos el c·lculo del mÛdulo sobre 23 para comprobar que la letra coincida
 
         switch (valorletra) {
             case 0:
@@ -159,17 +159,17 @@ public class Huesped implements Comparable<Huesped> {
         }
 
         if(!valido){
-            throw new IllegalArgumentException("ERROR: La letra del dni del hu√©sped no es correcta.");
+            throw new IllegalArgumentException("ERROR: La letra del dni del huÈsped no es correcta.");
         }
 
         return valido;
     }
 
-   /*Crea los m√©todos de acceso y modificaci√≥n de cada atributo con la visibilidad adecuada, teniendo en cuenta que un nombre
-   estar√° compuesto de palabras separadas por un espacio y cada palabra comenzar√° con una may√∫scula y continuar√° con min√∫sculas.
-   El DNI, el tel√©fono y el correo deben tambi√©n tener un formato v√°lido. Adem√°s debes comprobar que la letra del DNI sea
-   correcta. Debes crear las constantes para las expresiones regulares que luego utilizar√°s en los m√©todos de modificaci√≥n.
-   Los m√©todos de modificaci√≥n lanzar√°n las excepciones adecuadas en caso de que el valor que se pretenda asignar al atributo no
+   /*Crea los mÈtodos de acceso y modificaciÛn de cada atributo con la visibilidad adecuada, teniendo en cuenta que un nombre
+   estar· compuesto de palabras separadas por un espacio y cada palabra comenzar· con una may˙scula y continuar· con min˙sculas.
+   El DNI, el telÈfono y el correo deben tambiÈn tener un formato v·lido. Adem·s debes comprobar que la letra del DNI sea
+   correcta. Debes crear las constantes para las expresiones regulares que luego utilizar·s en los mÈtodos de modificaciÛn.
+   Los mÈtodos de modificaciÛn lanzar·n las excepciones adecuadas en caso de que el valor que se pretenda asignar al atributo no
    sea adecuado. */
 
     public String getNombre(){
@@ -190,33 +190,33 @@ public class Huesped implements Comparable<Huesped> {
     public void setNombre(String nombre){
         try{
             if(nombre.isEmpty()){
-                throw new IllegalArgumentException("ERROR: El nombre de un hu√©sped no puede estar vac√≠o.");
+                throw new IllegalArgumentException("ERROR: El nombre de un huÈsped no puede estar vacÌo.");
             }
             this.nombre = formateaNombre(nombre);//Formateamos el nombre introducido
         }catch(NullPointerException e){
-            throw new NullPointerException("ERROR: El nombre de un hu√©sped no puede ser nulo.");
+            throw new NullPointerException("ERROR: El nombre de un huÈsped no puede ser nulo.");
         }
     }
     public void setTelefono(String telefono) {
         try{
-            if (telefono.matches(ER_TELEFONO)) {//Comprobamos el formato del tel√©fono, si v√°lido a√±adimos
+            if (telefono.matches(ER_TELEFONO)) {//Comprobamos el formato del telÈfono, si v·lido aÒadimos
                 this.telefono = telefono;
             }else{
-                throw new IllegalArgumentException("ERROR: El tel√©fono del hu√©sped no tiene un formato v√°lido.");
+                throw new IllegalArgumentException("ERROR: El telÈfono del huÈsped no tiene un formato v·lido.");
             }
         }catch(NullPointerException e){
-            throw new NullPointerException("ERROR: El tel√©fono de un hu√©sped no puede ser nulo.");
+            throw new NullPointerException("ERROR: El telÈfono de un huÈsped no puede ser nulo.");
         }
     }
     public void setCorreo(String correo){
         try{
-            if(correo.matches(ER_CORREO)){//Comprobamos el formato del correo, si v√°lido a√±adimos
+            if(correo.matches(ER_CORREO)){//Comprobamos el formato del correo, si v·lido aÒadimos
                 this.correo = correo;
             }else{
-                throw new IllegalArgumentException("ERROR: El correo del hu√©sped no tiene un formato v√°lido.");
+                throw new IllegalArgumentException("ERROR: El correo del huÈsped no tiene un formato v·lido.");
             }
         }catch(NullPointerException e) {
-            throw new NullPointerException("ERROR: El correo de un hu√©sped no puede ser nulo.");
+            throw new NullPointerException("ERROR: El correo de un huÈsped no puede ser nulo.");
         }
     }
     private void setDni(String dni){
@@ -224,15 +224,15 @@ public class Huesped implements Comparable<Huesped> {
         try{
             if(dni.matches(ER_DNI))//Comprobamos el formato del dni
                 if(comprobarLetraDni(dni))//comprobamos que la letra es correcta
-                    valido = true;//Si v√°lido a√±adimos
+                    valido = true;//Si v·lido aÒadimos
 
         }catch(NullPointerException e){
-            throw new NullPointerException("ERROR: El dni de un hu√©sped no puede ser nulo.");
+            throw new NullPointerException("ERROR: El dni de un huÈsped no puede ser nulo.");
         }
         if(valido){
             this.dni = dni;
         }else{
-            throw new IllegalArgumentException("ERROR: El dni del hu√©sped no tiene un formato v√°lido.");
+            throw new IllegalArgumentException("ERROR: El dni del huÈsped no tiene un formato v·lido.");
         }
     }
     private void setFechaNacimiento(LocalDate fechaNacimiento){
@@ -242,7 +242,7 @@ public class Huesped implements Comparable<Huesped> {
             }
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String fecha = fechaNacimiento.format(pattern);
-            boolean valido = false;//Variable que controla si la fecha es v√°lida.
+            boolean valido = false;//Variable que controla si la fecha es v·lida.
             if(fecha.matches(FORMATO_FECHA)) {
                 Pattern patron = Pattern.compile(FORMATO_FECHA);
                 Matcher acoplamiento = patron.matcher(fecha);
@@ -255,32 +255,32 @@ public class Huesped implements Comparable<Huesped> {
                     ano = acoplamiento.group(1);
                 }
 
-                if (!mes.matches("02")) {//Como el formato de la fecha es correcto, si el mes no es febrero no tendremos que realizar m√°s comprobaciones
+                if (!mes.matches("02")) {//Como el formato de la fecha es correcto, si el mes no es febrero no tendremos que realizar m·s comprobaciones
                     this.fechaNacimiento = fechaNacimiento;
                     valido = true;
                 } else {//Si por el contrario la fecha pertenece a febrero
-                    if (Integer.parseInt(ano) % 4 == 0) {//Comprobamos que el a√±o sea bisiesto
+                    if (Integer.parseInt(ano) % 4 == 0) {//Comprobamos que el aÒo sea bisiesto
                         if (Integer.parseInt(dia) < 30) {
                             this.fechaNacimiento = fechaNacimiento;
                             valido = true;
                         }
                     } else {
-                        if (Integer.parseInt(dia) < 29) {//Si el a√±o no es bisiesto
+                        if (Integer.parseInt(dia) < 29) {//Si el aÒo no es bisiesto
                             this.fechaNacimiento = fechaNacimiento;
                             valido = true;
                         }
                     }
                 }
                 if(!valido){
-                    System.err.println("La fecha introducida no es v√°lida.");
+                    System.err.println("La fecha introducida no es v·lida.");
                 }
             }
         }catch(NullPointerException e){
-            throw new NullPointerException("ERROR: La fecha de nacimiento de un hu√©sped no puede ser nula.");
+            throw new NullPointerException("ERROR: La fecha de nacimiento de un huÈsped no puede ser nula.");
         }
     }
 
-    /*Crea el m√©todo getIniciales. Este m√©todo devolver√° las iniciales del nombre.*/
+    /*Crea el mÈtodo getIniciales. Este mÈtodo devolver· las iniciales del nombre.*/
     private String getIniciales(){
         String iniciales = "";
         String[] array = nombre.split(" ");
@@ -292,7 +292,7 @@ public class Huesped implements Comparable<Huesped> {
 
 
 
-    /*Crea los m√©todos equals y hashCode, sabiendo que dos hu√©spedes se considerar√°n iguales si su DNI es el mismo*/
+    /*Crea los mÈtodos equals y hashCode, sabiendo que dos huÈspedes se considerar·n iguales si su DNI es el mismo*/
     @Override
     public boolean equals(Object obj) {
         Huesped huesped = (Huesped)obj;
@@ -304,11 +304,11 @@ public class Huesped implements Comparable<Huesped> {
         return super.hashCode();
     }
 
-    /*Crea el m√©todo toString que devuelva la cadena que esperan los tests. */
+    /*Crea el mÈtodo toString que devuelva la cadena que esperan los tests. */
     public String toString(){
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fecha = fechaNacimiento.format(pattern);
-        String cadena = String.format("nombre=%s (%s), DNI=%s, correo=%s, tel√©fono=%s, fecha nacimiento=%s", this.nombre, getIniciales(), this.dni, this.correo, this.telefono, fecha);
+        String cadena = String.format("nombre=%s (%s), DNI=%s, correo=%s, telÈfono=%s, fecha nacimiento=%s", this.nombre, getIniciales(), this.dni, this.correo, this.telefono, fecha);
         return cadena;
     }
 
