@@ -5,6 +5,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -170,7 +171,7 @@ public class MongoDB {
         }
         if(habitacion instanceof Triple){
             camas_individuales = habitacion.getNumCamasIndividuales();
-            camas_dobles = habitacion.getNumCamasDobles();
+            camas_dobles = Triple.getNumCamasDobles();
             banos = habitacion.getNumBanos();
             dHabitacion.append(BANOS, banos).append(CAMAS_INDIVIDUALES, camas_individuales).append(CAMAS_DOBLES, camas_dobles);
         }
@@ -190,19 +191,19 @@ public class MongoDB {
         String tipo=documentoHabitacion.getString(TIPO);
         if (tipo.equals(TIPO_SIMPLE))
         {
-            habitacion=new SIMPLE(documentoHabitacion.getInteger(PLANTA),documentoHabitacion.getInteger(PUERTA),documentoHabitacion.getDouble(PRECIO));
+            habitacion=new Simple(documentoHabitacion.getInteger(PLANTA),documentoHabitacion.getInteger(PUERTA),documentoHabitacion.getDouble(PRECIO));
         }
         else if (tipo.equals(TIPO_DOBLE))
         {
-            habitacion=new DOBLE(documentoHabitacion.getInteger(PLANTA),documentoHabitacion.getInteger(PUERTA),documentoHabitacion.getDouble(PRECIO), documentoHabitacion.getInteger(CAMAS_INDIVIDUALES), documentoHabitacion.getInteger(CAMAS_DOBLES));
+            habitacion=new Doble(documentoHabitacion.getInteger(PLANTA),documentoHabitacion.getInteger(PUERTA),documentoHabitacion.getDouble(PRECIO), documentoHabitacion.getInteger(CAMAS_INDIVIDUALES), documentoHabitacion.getInteger(CAMAS_DOBLES));
         }
         else if (tipo.equals(TIPO_TRIPLE))
         {
-            habitacion=new TRIPLE(documentoHabitacion.getInteger(PLANTA),documentoHabitacion.getInteger(PUERTA),documentoHabitacion.getDouble(PRECIO), documentoHabitacion.getInteger(BANOS), documentoHabitacion.getInteger(CAMAS_INDIVIDUALES), documentoHabitacion.getInteger(CAMAS_DOBLES));
+            habitacion=new Triple(documentoHabitacion.getInteger(PLANTA),documentoHabitacion.getInteger(PUERTA),documentoHabitacion.getDouble(PRECIO), documentoHabitacion.getInteger(BANOS), documentoHabitacion.getInteger(CAMAS_INDIVIDUALES), documentoHabitacion.getInteger(CAMAS_DOBLES));
         }
         else if (tipo.equals(TIPO_SUITE))
         {
-            habitacion=new SUITE(documentoHabitacion.getInteger(PLANTA),documentoHabitacion.getInteger(PUERTA),documentoHabitacion.getDouble(PRECIO), documentoHabitacion.getInteger(BANOS), documentoHabitacion.getBoolean(JACUZZI));
+            habitacion=new Suite(documentoHabitacion.getInteger(PLANTA),documentoHabitacion.getInteger(PUERTA),documentoHabitacion.getDouble(PRECIO), documentoHabitacion.getInteger(BANOS), documentoHabitacion.getBoolean(JACUZZI));
         }
         return habitacion;
     }
