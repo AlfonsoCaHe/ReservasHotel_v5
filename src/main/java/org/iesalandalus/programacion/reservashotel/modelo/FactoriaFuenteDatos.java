@@ -10,7 +10,7 @@ public enum FactoriaFuenteDatos {
             return new FuenteDatosMemoria();
         }
     },
-    MONGO_DB{
+    MONGODB{
         public IFuentesDatos crear(){
             return new FuenteDatosMongoDB();
         }

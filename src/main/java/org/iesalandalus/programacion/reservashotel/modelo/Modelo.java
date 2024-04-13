@@ -41,7 +41,7 @@ public class Modelo implements IModelo{
     }
 
     public void setFuentesDatos(IFuentesDatos factoriaFuenteDatos){
-        if(fuentesDatos == null){
+        if(factoriaFuenteDatos == null){
             throw new NullPointerException("ERROR: No se ha escogido un modelo de datos válido.");
         }
         this.fuentesDatos = factoriaFuenteDatos;
