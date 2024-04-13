@@ -33,6 +33,9 @@ import org.iesalandalus.programacion.reservashotel.vista.Vista;
                     break;
                 case "-fdmemoria":
                     modelo = new Modelo(FactoriaFuenteDatos.MEMORIA.crear());
+                    break;
+                default:
+                    System.out.println("ERROR: No se ha introducido un modelo válido.");
             }
         }
     }
