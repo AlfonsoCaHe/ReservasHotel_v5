@@ -243,8 +243,8 @@ public class MongoDB {
             regimen = Regimen.SOLO_ALOJAMIENTO;
         }
 
-        LocalDate fechaInicioReserva = (LocalDate) documentoReserva.get(FECHA_INICIO_RESERVA);
-        LocalDate fechaFinReserva = (LocalDate) documentoReserva.get(FECHA_FIN_RESERVA);
+        LocalDate fechaInicioReserva = LocalDate.parse(documentoReserva.getString(FECHA_INICIO_RESERVA), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        LocalDate fechaFinReserva = LocalDate.parse(documentoReserva.getString(FECHA_FIN_RESERVA), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
         Reserva reserva = new Reserva(huesped, habitacion, regimen, fechaInicioReserva, fechaFinReserva, documentoReserva.getInteger(NUMERO_PERSONAS));
 
@@ -277,12 +277,25 @@ public class MongoDB {
         String fechaInicioReserva = reserva.getFechaInicioReserva().format(FORMATO_DIA);
         String fechaFinReserva = reserva.getFechaFinReserva().format(FORMATO_DIA);
 
-        String checkIn = reserva.getCheckIn().format(FORMATO_DIA_HORA);
-        String checkOut = reserva.getCheckOut().format(FORMATO_DIA_HORA);
+        if(reserva.getRegimen().equals(Regimen.SOLO_ALOJAMIENTO))
+            dReserva.append(REGIMEN, "SOLO_ALOJAMIENTO");
+        if(reserva.getRegimen().equals(Regimen.ALOJAMIENTO_DESAYUNO))
+            dReserva.append(REGIMEN, "ALOJAMIENTO_DESAYUNO");
+        if(reserva.getRegimen().equals(Regimen.MEDIA_PENSION))
+            dReserva.append(REGIMEN, "MEDIA_PENSIÓN");
+        if(reserva.getRegimen().equals(Regimen.PENSION_COMPLETA))
+            dReserva.append(REGIMEN, "PENSIÓN_COMPLETA");
+
+        String checkIn = null;
+        String checkOut = null;
+        if(reserva.getCheckIn() != null)
+            checkIn = reserva.getCheckIn().format(FORMATO_DIA_HORA);
+        if(reserva.getCheckOut() != null)
+            checkOut = reserva.getCheckOut().format(FORMATO_DIA_HORA);
 
         Double precio = reserva.getPrecio();
         int numeroPersonas = reserva.getNumeroPersonas();
 
-        return dReserva.append(HUESPED, dHuesped).append(HABITACION, dHabitacion).append(REGIMEN, reserva.getRegimen()).append(FECHA_INICIO_RESERVA, fechaInicioReserva).append(FECHA_FIN_RESERVA, fechaFinReserva).append(CHECKIN, checkIn).append(CHECKOUT, checkOut).append(PRECIO_RESERVA, precio).append(NUMERO_PERSONAS, numeroPersonas);
+        return dReserva.append(HUESPED, dHuesped).append(HABITACION, dHabitacion).append(FECHA_INICIO_RESERVA, fechaInicioReserva).append(FECHA_FIN_RESERVA, fechaFinReserva).append(CHECKIN, checkIn).append(CHECKOUT, checkOut).append(PRECIO_RESERVA, precio).append(NUMERO_PERSONAS, numeroPersonas);
     }
 }

@@ -30,7 +30,6 @@ public class Vista {
         do {
             try {
                 opcion = Consola.elegirOpcion();
-                //ejecutarOpcion(opcion);
                 opcion.ejecutar();
                 System.out.println("\n************************************************************\n");
             }catch(IllegalArgumentException | NullPointerException e){
