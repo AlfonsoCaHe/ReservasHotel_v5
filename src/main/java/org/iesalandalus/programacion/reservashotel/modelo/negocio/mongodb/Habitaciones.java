@@ -1,41 +1,41 @@
 package org.iesalandalus.programacion.reservashotel.modelo.negocio.mongodb;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import org.bson.Document;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.*;
 import org.iesalandalus.programacion.reservashotel.modelo.negocio.IHabitaciones;
+import org.iesalandalus.programacion.reservashotel.modelo.negocio.mongodb.utilidades.MongoDB;
 
 import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Habitaciones implements IHabitaciones {
 
-    private ArrayList<Habitacion> coleccionHabitaciones;
+    private MongoCollection<Document> coleccionHabitaciones;
+
+    //Atributo que guarda el nombre de la colección de la base de datos
+    private String COLECCION = "habitaciones";
 
     /*Crea el constructor que creará una lista del tipo Habitacion*/
     public Habitaciones(){
-        coleccionHabitaciones = new ArrayList<>();
+        comenzar();
     }
 
     /*Crea el método get que está sobrecargado y devolverá
     El método sin parámetros, una copia profunda de la colección haciendo uso del método copiaProfundaHabitaciones.
     */
     public ArrayList<Habitacion> get() {
-        return copiaProfundaHabitaciones();
-    }
+        ArrayList<Habitacion> copiaHabitaciones = new ArrayList<Habitacion>();
 
-    private ArrayList<Habitacion> copiaProfundaHabitaciones(){
-        ArrayList<Habitacion> copiaHabitaciones = new ArrayList<>();
+        MongoCursor<Document> cursor = coleccionHabitaciones.find().iterator();
 
-        for(Habitacion h : coleccionHabitaciones){
-            if(h instanceof Simple)
-                copiaHabitaciones.add(new Simple((Simple)h));
-            if(h instanceof Doble)
-                copiaHabitaciones.add(new Doble((Doble)h));
-            if(h instanceof Triple)
-                copiaHabitaciones.add(new Triple((Triple)h));
-            if(h instanceof Suite)
-                copiaHabitaciones.add(new Suite((Suite)h));
+        while(cursor.hasNext()){
+            copiaHabitaciones.add(MongoDB.getHabitacion(cursor.next()));
         }
 
+        Collections.sort(copiaHabitaciones);
         return copiaHabitaciones;
     }
 
@@ -44,36 +44,41 @@ public class Habitaciones implements IHabitaciones {
     el indicado como parámetro.
      */
     public ArrayList<Habitacion> get(TipoHabitacion tipoHabitacion) {
-        ArrayList<Habitacion> copiaHabitaciones = new ArrayList<>();
+        ArrayList<Habitacion> habitacionesTipo = new ArrayList<>();
+        ArrayList<Habitacion> copia = get();
 
-        for(Habitacion h : coleccionHabitaciones){
+        for(Habitacion h : copia){
             if(h instanceof Simple){
                 if(tipoHabitacion.toString().toUpperCase().equals("SIMPLE"))
-                    copiaHabitaciones.add(new Simple((Simple)h));
+                    habitacionesTipo.add(new Simple((Simple)h));
             }
             if(h instanceof Doble){
                 if(tipoHabitacion.toString().toUpperCase().equals("DOBLE"))
-                    copiaHabitaciones.add(new Doble((Doble)h));
+                    habitacionesTipo.add(new Doble((Doble)h));
             }
             if(h instanceof Triple){
                 if(tipoHabitacion.toString().toUpperCase().equals("TRIPLE"))
-                    copiaHabitaciones.add(new Triple((Triple)h));
+                    habitacionesTipo.add(new Triple((Triple)h));
             }
             if(h instanceof Suite){
                 if(tipoHabitacion.toString().toUpperCase().equals("SUITE"))
-                    copiaHabitaciones.add(new Suite((Suite)h));
+                    habitacionesTipo.add(new Suite((Suite)h));
             }
         }
 
-        return copiaHabitaciones;
+        return habitacionesTipo;
+    }
+
+    public int getTamano(){
+        return Integer.parseInt(""+MongoDB.getBD().getCollection(COLECCION).countDocuments());
     }
 
     /*Se permitirán insertar habitaciones no nulas al final de la colección sin admitir repetidos.*/
     public void insertar(Habitacion habitacion) throws OperationNotSupportedException {
         try{
             if(habitacion != null) {
-                if(!coleccionHabitaciones.contains(habitacion)) {
-                    coleccionHabitaciones.add(habitacion);//Insertamos al final del array
+                if (buscar(habitacion) == null) {
+                    coleccionHabitaciones.insertOne(MongoDB.getDocumento(habitacion));
                 }else{
                     throw new OperationNotSupportedException("ERROR: Ya existe una habitación con ese identificador.");
                 }
@@ -90,9 +95,16 @@ public class Habitaciones implements IHabitaciones {
         if(habitacion == null)
             throw new NullPointerException("ERROR: No se puede buscar una habitación nula.");
         Habitacion habitacionEncontrada = null;
-        if(coleccionHabitaciones.contains(habitacion)) {//Si no se encuentra índice, es que la habitacion no se encuentra dentro del array
-            habitacionEncontrada = coleccionHabitaciones.get(coleccionHabitaciones.indexOf(habitacion));
+
+        MongoCursor<Document> cursor = coleccionHabitaciones.find().iterator();
+
+        while (cursor.hasNext()) {
+            Habitacion h = MongoDB.getHabitacion(cursor.next());
+            if (h.equals(habitacion)) {
+                habitacionEncontrada = h;
+            }
         }
+
         return habitacionEncontrada;
     }
 
@@ -100,8 +112,9 @@ public class Habitaciones implements IHabitaciones {
     public void borrar(Habitacion habitacion) throws OperationNotSupportedException {
         if(habitacion == null)
             throw new NullPointerException("ERROR: No se puede borrar una habitación nula.");
-        if(coleccionHabitaciones.contains(habitacion)){
-            coleccionHabitaciones.remove(habitacion);
+        Habitacion h = buscar(habitacion);
+        if(h != null){
+            coleccionHabitaciones.deleteOne(MongoDB.getDocumento(habitacion));
         }else{
             throw new OperationNotSupportedException("ERROR: No existe ninguna habitación como la indicada.");
         }
@@ -109,15 +122,15 @@ public class Habitaciones implements IHabitaciones {
 
     @Override
     public void comenzar() {
-
+        try {
+            coleccionHabitaciones = MongoDB.getBD().getCollection(COLECCION);
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public void terminar() {
-
-    }
-
-    public int getTamano(){
-        return coleccionHabitaciones.size();
+        MongoDB.cerrarConexion();
     }
 }

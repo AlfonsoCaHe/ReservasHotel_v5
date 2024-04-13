@@ -9,6 +9,7 @@ import org.iesalandalus.programacion.reservashotel.modelo.dominio.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public class MongoDB {
@@ -131,7 +132,7 @@ public class MongoDB {
         }
     }
 
-    public Document getDocumento(Huesped huesped){
+    public static Document getDocumento(Huesped huesped){
         if (huesped == null) {
             return null;
         }
@@ -140,17 +141,22 @@ public class MongoDB {
         String correo = huesped.getCorreo();
         String dni = huesped.getDni();
         LocalDate fechaNacimiento = huesped.getFechaNacimiento();
-        return new Document().append(NOMBRE, nombre).append(TELEFONO, telefono).append(CORREO, correo).append(DNI, dni).append(FECHA_NACIMIENTO, fechaNacimiento);
+        return new Document().append(NOMBRE, nombre).append(DNI, dni).append(CORREO, correo).append(TELEFONO, telefono).append(FECHA_NACIMIENTO, fechaNacimiento);
     }
 
-    public Huesped getHuesped(Document documentoHuesped){
+    public static Huesped getHuesped(Document documentoHuesped){
         if (documentoHuesped == null) {
             return null;
         }
-        return new Huesped(documentoHuesped.getString(NOMBRE), documentoHuesped.getString(TELEFONO), documentoHuesped.getString(CORREO), documentoHuesped.getString(DNI), LocalDate.parse(documentoHuesped.getString(FECHA_NACIMIENTO), FORMATO_DIA));
+        String nombre = documentoHuesped.getString(NOMBRE);
+        String dni = documentoHuesped.getString(DNI);
+        String correo = documentoHuesped.getString(CORREO);
+        String telefono = documentoHuesped.getString(TELEFONO);
+        LocalDate fechaNacimiento = documentoHuesped.getDate(FECHA_NACIMIENTO).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return new Huesped(nombre, dni, correo, telefono, fechaNacimiento);
     }
 
-    public Document getDocumento(Habitacion habitacion){
+    public static Document getDocumento(Habitacion habitacion){
         if (habitacion == null) {
             return null;
         }
@@ -164,26 +170,29 @@ public class MongoDB {
         int banos;
         boolean jacuzzi;
         dHabitacion.append(IDENTIFICADOR, identificador).append(PLANTA, planta).append(PUERTA, puerta).append(PRECIO, precio);
+        if(habitacion instanceof Simple){
+            dHabitacion.append(TIPO, TIPO_SIMPLE);
+        }
         if(habitacion instanceof Doble){
             camas_individuales = ((Doble) habitacion).getNumCamasIndividuales();
             camas_dobles = ((Doble) habitacion).getNumCamasDobles();
-            dHabitacion.append(CAMAS_INDIVIDUALES, camas_individuales).append(CAMAS_DOBLES, camas_dobles);
+            dHabitacion.append(CAMAS_INDIVIDUALES, camas_individuales).append(CAMAS_DOBLES, camas_dobles).append(TIPO, TIPO_DOBLE);
         }
         if(habitacion instanceof Triple){
             camas_individuales = ((Triple) habitacion).getNumCamasIndividuales();
             camas_dobles = ((Triple) habitacion).getNumCamasDobles();
             banos = ((Triple) habitacion).getNumBanos();
-            dHabitacion.append(BANOS, banos).append(CAMAS_INDIVIDUALES, camas_individuales).append(CAMAS_DOBLES, camas_dobles);
+            dHabitacion.append(BANOS, banos).append(CAMAS_INDIVIDUALES, camas_individuales).append(CAMAS_DOBLES, camas_dobles).append(TIPO, TIPO_TRIPLE);
         }
         if(habitacion instanceof Suite){
             banos = ((Suite) habitacion).getNumBanos();
             jacuzzi = ((Suite) habitacion).isTieneJacuzzi();
-            dHabitacion.append(BANOS, banos).append(JACUZZI, jacuzzi);
+            dHabitacion.append(BANOS, banos).append(JACUZZI, jacuzzi).append(TIPO, TIPO_SUITE);
         }
         return dHabitacion;
     }
 
-    public Habitacion getHabitacion(Document documentoHabitacion){
+    public static Habitacion getHabitacion(Document documentoHabitacion){
         if (documentoHabitacion == null) {
             return null;
         }
@@ -208,7 +217,7 @@ public class MongoDB {
         return habitacion;
     }
 
-    public Reserva getReserva(Document documentoReserva){
+    public static Reserva getReserva(Document documentoReserva){
         if(documentoReserva == null){
             return null;
         }
@@ -257,7 +266,7 @@ public class MongoDB {
         return reserva;
     }
 
-    public Document getDocumento(Reserva reserva){
+    public static Document getDocumento(Reserva reserva){
         if(reserva == null){
             return null;
         }

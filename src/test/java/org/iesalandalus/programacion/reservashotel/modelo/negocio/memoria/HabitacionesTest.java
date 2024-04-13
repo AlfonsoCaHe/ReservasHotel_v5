@@ -4,7 +4,6 @@ import org.iesalandalus.programacion.reservashotel.modelo.dominio.Doble;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Simple;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Suite;
-import org.iesalandalus.programacion.reservashotel.modelo.negocio.mongodb.Habitaciones;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
