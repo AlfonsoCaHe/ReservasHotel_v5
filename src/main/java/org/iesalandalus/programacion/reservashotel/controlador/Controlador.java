@@ -1,10 +1,10 @@
 package org.iesalandalus.programacion.reservashotel.controlador;
 
+import org.iesalandalus.programacion.reservashotel.modelo.IModelo;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Reserva;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
-import org.iesalandalus.programacion.reservashotel.modelo.Modelo;
 import org.iesalandalus.programacion.reservashotel.vista.Vista;
 
 import javax.naming.OperationNotSupportedException;
@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Controlador {
-    private Modelo modelo;
+    private IModelo modelo;
     private Vista vista;
 
-    public Controlador(Modelo modelo, Vista vista) {
+    public Controlador(IModelo modelo, Vista vista) {
         try {
             if (modelo == null || vista == null) {
                 throw new NullPointerException("ERROR: El modelo y la vista no pueden ser nulos.");
@@ -205,6 +205,18 @@ public class Controlador {
         ArrayList<Reserva> r = null;
         try {
             r = modelo.getReservas(tipoHabitacion);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        } catch (NullPointerException e) {
+            throw new NullPointerException(e.getMessage());
+        }
+        return r;
+    }
+
+    public ArrayList<Reserva> getReservas(Habitacion habitacion) {
+        ArrayList<Reserva> r = null;
+        try {
+            r = modelo.getReservas(habitacion);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
         } catch (NullPointerException e) {
