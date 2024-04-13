@@ -270,6 +270,7 @@ public class MongoDB {
         if(reserva == null){
             return null;
         }
+
         Document dReserva = new Document();
         Document dHuesped = getDocumento(reserva.getHuesped());
         Document dHabitacion = getDocumento(reserva.getHabitacion());
