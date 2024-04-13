@@ -4,37 +4,47 @@ import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Reserva;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
+import org.iesalandalus.programacion.reservashotel.modelo.negocio.IFuentesDatos;
 import org.iesalandalus.programacion.reservashotel.modelo.negocio.IHabitaciones;
 import org.iesalandalus.programacion.reservashotel.modelo.negocio.IHuespedes;
 import org.iesalandalus.programacion.reservashotel.modelo.negocio.IReservas;
-import org.iesalandalus.programacion.reservashotel.modelo.negocio.mongodb.Habitaciones;
-import org.iesalandalus.programacion.reservashotel.modelo.negocio.mongodb.Huespedes;
-import org.iesalandalus.programacion.reservashotel.modelo.negocio.mongodb.Reservas;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Modelo {
+public class Modelo implements IModelo{
 
     private IHuespedes huespedes;
     private IHabitaciones habitaciones;
     private IReservas reservas;
+    private IFuentesDatos fuentesDatos;
 
-    public Modelo(){
+    public Modelo(IFuentesDatos factoriaFuenteDatos){
+        setFuentesDatos(factoriaFuenteDatos);
         comenzar();
     }
 
     public void comenzar(){
-        huespedes = new Huespedes();
-        habitaciones = new Habitaciones();
-        reservas = new Reservas();
+        huespedes = fuentesDatos.crearHuespedes();
+        habitaciones = fuentesDatos.crearHabitaciones();
+        reservas = fuentesDatos.crearReservas();
     }
 
     public void terminar(){
+        huespedes.terminar();
+        habitaciones.terminar();
+        reservas.terminar();
         System.out.println("************************************************************");
         System.out.println("\t\t\t\tEl modelo ha terminado.");
         System.out.println("************************************************************\n");
+    }
+
+    public void setFuentesDatos(IFuentesDatos factoriaFuenteDatos){
+        if(fuentesDatos == null){
+            throw new NullPointerException("ERROR: No se ha escogido un modelo de datos válido.");
+        }
+        this.fuentesDatos = factoriaFuenteDatos;
     }
 
     /*Crea los diferentes métodos insertar (para huesped, habitación y reserva).
@@ -176,6 +186,18 @@ public class Modelo {
         ArrayList<Reserva> r;
         try{
             r = reservas.getReservas(tipoHabitacion);
+        }catch(IllegalArgumentException e){
+            throw new IllegalArgumentException(e.getMessage());
+        }catch(NullPointerException e){
+            throw new NullPointerException(e.getMessage());
+        }
+        return r;
+    }
+
+    public ArrayList<Reserva> getReservas(Habitacion habitacion){
+        ArrayList<Reserva> r;
+        try{
+            r = reservas.getReservas(habitacion);
         }catch(IllegalArgumentException e){
             throw new IllegalArgumentException(e.getMessage());
         }catch(NullPointerException e){

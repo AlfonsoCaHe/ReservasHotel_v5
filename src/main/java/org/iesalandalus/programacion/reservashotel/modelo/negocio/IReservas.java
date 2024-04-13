@@ -25,6 +25,8 @@ public interface IReservas {
 
     public abstract ArrayList<Reserva> getReservas(TipoHabitacion tipoHabitacion);
 
+    public abstract ArrayList<Reserva> getReservas(Habitacion habitacion);
+
     public abstract ArrayList<Reserva> getReservasFuturas(Habitacion habitacion);
 
     public abstract void realizarCheckin(Reserva reserva, LocalDateTime fecha);

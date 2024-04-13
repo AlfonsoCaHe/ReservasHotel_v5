@@ -143,6 +143,48 @@ public class Reservas implements IReservas {
         return copiaReservas;
     }
 
+    public ArrayList<Reserva> getReservas(Habitacion habitacion) {
+        ArrayList<Reserva> copiaReservas = new ArrayList<>();
+        try{
+            if(habitacion == null) {
+                throw new NullPointerException("ERROR: No se pueden buscar reservas de una habitación nula.");
+            }
+
+            TipoHabitacion tipoHabitacion = null;
+            if (habitacion instanceof Simple)
+                tipoHabitacion = TipoHabitacion.SIMPLE;
+            if(habitacion instanceof Doble)
+                tipoHabitacion = TipoHabitacion.DOBLE;
+            if(habitacion instanceof Triple)
+                tipoHabitacion = TipoHabitacion.TRIPLE;
+            if(habitacion instanceof Suite)
+                tipoHabitacion = TipoHabitacion.SUITE;
+
+            for(Reserva r : coleccionReservas){
+                if(r.getHabitacion() instanceof Simple){
+                    if(tipoHabitacion.toString().toUpperCase().equals("SIMPLE"))
+                        copiaReservas.add(r);
+                }
+                if(r.getHabitacion() instanceof Doble){
+                    if(tipoHabitacion.toString().toUpperCase().equals("DOBLE"))
+                        copiaReservas.add(r);
+                }
+                if(r.getHabitacion() instanceof Triple){
+                    if(tipoHabitacion.toString().toUpperCase().equals("TRIPLE"))
+                        copiaReservas.add(r);
+                }
+                if(r.getHabitacion() instanceof Suite){
+                    if(tipoHabitacion.toString().toUpperCase().equals("SUITE"))
+                        copiaReservas.add(r);
+                }
+            }
+
+        }catch(NullPointerException e) {
+            throw new NullPointerException("ERROR: No se pueden buscar reservas de un tipo de habitación nula.");
+        }
+        return copiaReservas;
+    }
+
 
     /*El método getReservasFuturas que devolverá una colección de las reservas realizadas para la habitación indicada como
     parámetro y que sean posteriores a la fecha de hoy.
