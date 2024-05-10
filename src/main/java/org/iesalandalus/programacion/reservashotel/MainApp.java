@@ -11,12 +11,12 @@ import org.iesalandalus.programacion.reservashotel.vista.texto.VistaTexto;
         private static IModelo modelo;
         private static Controlador controlador;
 
-        /*Crea el método main que nos mostrará el menú de la aplicación, nos pedirá una opción y la ejecutará mientras no elijamos
-        la opción salir. En caso de salir, la aplicación mostrará un mensaje de despedida.*/
+        /*Crea el mÃ©todo main que nos mostrarï¿½ el menï¿½ de la aplicaciï¿½n, nos pedirï¿½ una opciï¿½n y la ejecutarï¿½ mientras no elijamos
+        la opciï¿½n salir. En caso de salir, la aplicaciï¿½n mostrarï¿½ un mensaje de despedida.*/
         public static void main(String[] args) {
-            System.out.println("Programa para la Gestión de Hoteles IES Al-Ándalus");
+            System.out.println("Programa para la Gestiï¿½n de Hoteles IES Al-ï¿½ndalus");
             if(args.length < 1){
-                System.out.println("No se han introducido parámetros de inicio. Inicio por defecto modelo MongoDB.");
+                System.out.println("No se han introducido parï¿½metros de inicio. Inicio por defecto modelo MongoDB.");
                 procesarArgumentosFuentesDatos("-fdmongodb");
             }else{
                 procesarArgumentosFuentesDatos(args[0]);
@@ -36,7 +36,7 @@ import org.iesalandalus.programacion.reservashotel.vista.texto.VistaTexto;
                     modelo = new Modelo(FactoriaFuenteDatos.MEMORIA.crear());
                     break;
                 default:
-                    System.out.println("ERROR: No se ha introducido un modelo válido.");
+                    System.out.println("ERROR: No se ha introducido un modelo vï¿½lido.");
             }
         }
     }
