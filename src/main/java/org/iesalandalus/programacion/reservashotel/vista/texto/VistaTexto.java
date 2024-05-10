@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.reservashotel.vista.texto;
 
 import org.iesalandalus.programacion.reservashotel.controlador.Controlador;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.*;
+import org.iesalandalus.programacion.reservashotel.vista.Vista;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 import javax.naming.OperationNotSupportedException;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
-public class VistaTexto {
+public class VistaTexto extends Vista {
     private Controlador controlador;
     public void setControlador(Controlador controlador){
         if(controlador != null){
@@ -20,6 +21,10 @@ public class VistaTexto {
         else{
             throw new NullPointerException("ERROR: El controlador no puede ser nulo.");
         }
+    }
+
+    public Controlador getControlador(){
+        return this.controlador;
     }
 
     public void comenzar(){
