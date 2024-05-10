@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public class LanzadorVentanaPrincipal extends Application {
 
-    public void comenzar(){
+    public static void comenzar(){
         launch();
     }
 
