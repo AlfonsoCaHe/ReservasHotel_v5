@@ -12,7 +12,7 @@ import org.iesalandalus.programacion.reservashotel.vista.texto.VistaTexto;
         private static Controlador controlador;
 
         /*Crea el método main que nos mostrar� el men� de la aplicaci�n, nos pedir� una opci�n y la ejecutar� mientras no elijamos
-        la opci�n salir. En caso de salir, la aplicaci�n mostrar� un mensaje de despedida.*/
+        la opción salir. En caso de salir, la aplicaci�n mostrar� un mensaje de despedida.*/
         public static void main(String[] args) {
             System.out.println("Programa para la Gesti�n de Hoteles IES Al-�ndalus");
             if(args.length < 1){
