@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="244.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.reservashotel.vista.grafica.controladores.ControladorVentanaPrincipal">
+    <children>
+        <Label text="Ventana Principal">
+            <font>
+                <Font name="Ani" size="45.0" />
+            </font>
+        </Label>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+            <children>
+               <!-- <Button fx:id="btVentana1" mnemonicParsing="false" onAction="#abrirVentana1" text="Ventana 1" />
+                <Button fx:id="btVentana2" mnemonicParsing="false" onAction="#abrirVentana2" text="Ventana 2" />
+                -->
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-radius: 10;">
+            <VBox.margin>
+                <Insets bottom="40.0" left="40.0" right="40.0" />
+            </VBox.margin>
+            <children>
+                <Label fx:id="lbMensajes" text="No hay mensajes de las ventanas">
+                    <font>
+                        <Font name="Ani" size="21.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </children>
+</VBox>
