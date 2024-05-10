@@ -16,15 +16,15 @@ import java.util.Iterator;
 public class Reservas implements IReservas {
     private MongoCollection<Document> coleccionReservas;
 
-    //Atributo que guarda el nombre de la colección de la base de datos
+    //Atributo que guarda el nombre de la colecciï¿½n de la base de datos
     private String COLECCION = "reservas";
 
-    /*Crea el constructor con parámetros que creará una lista de la capacidad indicada en el parámetro e inicializará los atributos de la clase a los valores correspondientes.*/
+    /*Crea el constructor con parï¿½metros que crearï¿½ una lista de la capacidad indicada en el parï¿½metro e inicializarï¿½ los atributos de la clase a los valores correspondientes.*/
     public Reservas() {
         comenzar();
     }
 
-    /*Crea el método get que devolverá una copia profunda de la colección haciendo uso del método copiaProfundaReservas.*/
+    /*Crea el mÃ©todo get que devolverï¿½ una copia profunda de la colecciï¿½n haciendo uso del mï¿½todo copiaProfundaReservas.*/
     public ArrayList<Reserva> get() {
         ArrayList<Reserva> copiaReservas = new ArrayList<Reserva>();
 
@@ -42,7 +42,7 @@ public class Reservas implements IReservas {
         return Integer.parseInt(""+MongoDB.getBD().getCollection(COLECCION).countDocuments());
     }
 
-    /*Se permitirán insertar reservas no nulas al final de la colección sin admitir repetidos.*/
+    /*Se permitirï¿½n insertar reservas no nulas al final de la colecciï¿½n sin admitir repetidos.*/
     public void insertar(Reserva reserva) throws OperationNotSupportedException {
         try {
             if (reserva != null) {
@@ -59,7 +59,7 @@ public class Reservas implements IReservas {
         }
     }
 
-    /*El método buscar devolverá una reserva si ésta se encuentra en la colección y null en caso contrario.*/
+    /*El mï¿½todo buscar devolverï¿½ una reserva si ï¿½sta se encuentra en la colecciï¿½n y null en caso contrario.*/
     public Reserva buscar(Reserva reserva) {
         if(reserva == null)
             throw new NullPointerException("ERROR: No se puede buscar una reserva nula.");
@@ -77,7 +77,7 @@ public class Reservas implements IReservas {
         return reservaEncontrada;
     }
 
-    /*El método borrar, si la reserva se encuentra en la colección, la borrará y desplazará los elementos hacia la izquierda
+    /*El mï¿½todo borrar, si la reserva se encuentra en la colecciï¿½n, la borrarï¿½ y desplazarï¿½ los elementos hacia la izquierda
     para dejar el array compactado.
     */
     public void borrar(Reserva reserva) throws OperationNotSupportedException {
@@ -98,12 +98,12 @@ public class Reservas implements IReservas {
 
     }
 
-    /*El método getReservas que está sobrecargado y devolverá una colección de las reservas realizadas por el huésped pasado
-    por parámetro o una colección de las reservas realizadas para el tipo de habitación indicada como parámetro.
+    /*El mï¿½todo getReservas que estï¿½ sobrecargado y devolverï¿½ una colecciï¿½n de las reservas realizadas por el huï¿½sped pasado
+    por parï¿½metro o una colecciï¿½n de las reservas realizadas para el tipo de habitaciï¿½n indicada como parï¿½metro.
     */
     public ArrayList<Reserva> getReservas(Huesped huesped) {
         if (huesped == null) {
-            throw new NullPointerException("ERROR: No se pueden buscar reservas de un huésped nulo.");
+            throw new NullPointerException("ERROR: No se pueden buscar reservas de un huï¿½sped nulo.");
         }
 
         ArrayList<Reserva> copiaReservas = new ArrayList<>();
@@ -124,7 +124,7 @@ public class Reservas implements IReservas {
         ArrayList<Reserva> copia = get();
         try{
             if(tipoHabitacion == null) {
-                throw new NullPointerException("ERROR: No se pueden buscar reservas de un tipo de habitación nula.");
+                throw new NullPointerException("ERROR: No se pueden buscar reservas de un tipo de habitaciï¿½n nula.");
             }
 
             for(Reserva r : copia){
@@ -147,7 +147,7 @@ public class Reservas implements IReservas {
             }
 
         }catch(NullPointerException e) {
-            throw new NullPointerException("ERROR: No se pueden buscar reservas de un tipo de habitación nula.");
+            throw new NullPointerException("ERROR: No se pueden buscar reservas de un tipo de habitaciï¿½n nula.");
         }
         return copiaReservas;
     }
@@ -158,7 +158,7 @@ public class Reservas implements IReservas {
 
         try{
             if(habitacion == null) {
-                throw new NullPointerException("ERROR: No se pueden buscar reservas de una habitación nula.");
+                throw new NullPointerException("ERROR: No se pueden buscar reservas de una habitaciï¿½n nula.");
             }
 
             TipoHabitacion tipoHabitacion = null;
@@ -191,18 +191,18 @@ public class Reservas implements IReservas {
             }
 
         }catch(NullPointerException e) {
-            throw new NullPointerException("ERROR: No se pueden buscar reservas de un tipo de habitación nula.");
+            throw new NullPointerException("ERROR: No se pueden buscar reservas de un tipo de habitaciï¿½n nula.");
         }
         return copiaReservas;
     }
 
 
-    /*El método getReservasFuturas que devolverá una colección de las reservas realizadas para la habitación indicada como
-    parámetro y que sean posteriores a la fecha de hoy.
+    /*El mï¿½todo getReservasFuturas que devolverï¿½ una colecciï¿½n de las reservas realizadas para la habitaciï¿½n indicada como
+    parï¿½metro y que sean posteriores a la fecha de hoy.
     */
     public ArrayList<Reserva> getReservasFuturas(Habitacion habitacion) {
         if(habitacion == null) {
-            throw new NullPointerException("ERROR: No se pueden buscar reservas de una habitación nula.");
+            throw new NullPointerException("ERROR: No se pueden buscar reservas de una habitaciï¿½n nula.");
         }
 
         ArrayList<Reserva> copiaReservas = new ArrayList<>();

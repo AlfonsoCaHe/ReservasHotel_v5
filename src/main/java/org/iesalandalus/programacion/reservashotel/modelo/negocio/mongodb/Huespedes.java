@@ -16,17 +16,17 @@ public class Huespedes implements IHuespedes {
 
     private MongoCollection<Document> coleccionHuespedes;
 
-    //Atributo que guarda el nombre de la colección de la base de datos
+    //Atributo que guarda el nombre de la colecciï¿½n de la base de datos
     private String COLECCION = "huespedes";
 
-    /*Crea el constructor con parámetros que creará una lista de la capacidad indicada en el parámetro e inicializará los atributos
+    /*Crea el constructor con parï¿½metros que crearï¿½ una lista de la capacidad indicada en el parï¿½metro e inicializarï¿½ los atributos
     de la clase a los valores correspondientes.
     */
     public Huespedes(){
         comenzar();
     }
 
-    /*El método get devolverá una copia profunda de los Huéspedes ordenados por DNI de la colección haciendo uso del método copiaProfundaHuespedes.*/
+    /*El mÃ©todo get devolverï¿½ una copia profunda de los Huï¿½spedes ordenados por DNI de la colecciï¿½n haciendo uso del mï¿½todo copiaProfundaHuespedes.*/
     public ArrayList<Huesped> get(){
         ArrayList<Huesped> copiahuespedes = new ArrayList<Huesped>();
 
@@ -44,27 +44,27 @@ public class Huespedes implements IHuespedes {
         return Integer.parseInt(""+MongoDB.getBD().getCollection(COLECCION).countDocuments());
     }
 
-    /*Se permitirán insertar huéspedes no nulos al final de la colección sin admitir repetidos.*/
+    /*Se permitirï¿½n insertar huï¿½spedes no nulos al final de la colecciï¿½n sin admitir repetidos.*/
     public void insertar(Huesped huesped)throws OperationNotSupportedException{
         try{
             if(huesped != null) {
                 if (buscar(huesped) == null) {
                     coleccionHuespedes.insertOne(MongoDB.getDocumento(huesped));
                 } else {
-                    throw new OperationNotSupportedException("ERROR: Ya existe un huésped con ese dni.");
+                    throw new OperationNotSupportedException("ERROR: Ya existe un huï¿½sped con ese dni.");
                 }
             }else{
-                throw new NullPointerException("ERROR: No se puede insertar un huésped nulo.");
+                throw new NullPointerException("ERROR: No se puede insertar un huï¿½sped nulo.");
             }
         }catch(NullPointerException e){
-            throw new NullPointerException("ERROR: No se puede insertar un huésped nulo.");
+            throw new NullPointerException("ERROR: No se puede insertar un huï¿½sped nulo.");
         }
     }
 
-    /*El método buscar devolverá un huésped si este se encuentra en la colección y null en caso contrario.*/
+    /*El mï¿½todo buscar devolverï¿½ un huï¿½sped si este se encuentra en la colecciï¿½n y null en caso contrario.*/
     public Huesped buscar(Huesped huesped){
         if(huesped == null)
-            throw new NullPointerException("ERROR: No se puede buscar un huésped nulo.");
+            throw new NullPointerException("ERROR: No se puede buscar un huï¿½sped nulo.");
         Huesped huespedEncontrado = null;
 
         MongoCursor<Document> cursor = coleccionHuespedes.find().iterator();
@@ -79,21 +79,21 @@ public class Huespedes implements IHuespedes {
         return huespedEncontrado;
     }
 
-    /*El método borrar, si el huésped se encuentra en la colección, lo borrará y desplazará los elementos hacia la izquierda para
+    /*El mï¿½todo borrar, si el huï¿½sped se encuentra en la colecciï¿½n, lo borrarï¿½ y desplazarï¿½ los elementos hacia la izquierda para
     dejar el array compactado.*/
     public void borrar(Huesped huesped)throws OperationNotSupportedException{
         try{
             if(huesped == null){
-                throw new NullPointerException("ERROR: No se puede borrar un huésped nulo.");
+                throw new NullPointerException("ERROR: No se puede borrar un huï¿½sped nulo.");
             }
             Huesped h = buscar(huesped);
             if(h != null){
                 coleccionHuespedes.deleteOne(MongoDB.getDocumento(huesped));
             }else{
-                throw new OperationNotSupportedException("ERROR: No existe ningún huésped como el indicado.");
+                throw new OperationNotSupportedException("ERROR: No existe ningï¿½n huï¿½sped como el indicado.");
             }
         }catch(NullPointerException e){
-            throw new NullPointerException("ERROR: No se puede borrar un huésped nulo.");
+            throw new NullPointerException("ERROR: No se puede borrar un huï¿½sped nulo.");
         }
     }
 
