@@ -1,9 +1,9 @@
-package org.iesalandalus.programacion.reservashotel.vista;
+package org.iesalandalus.programacion.reservashotel.vista.grafica;
 
 import org.iesalandalus.programacion.reservashotel.controlador.Controlador;
-import org.iesalandalus.programacion.reservashotel.vista.grafica.LanzadorVentanaPrincipal;
+import org.iesalandalus.programacion.reservashotel.vista.Vista;
 
-public class VistaGrafica extends Vista{
+public class VistaGrafica extends Vista {
 
     private static VistaGrafica instancia;
     private Controlador controlador;
@@ -12,8 +12,8 @@ public class VistaGrafica extends Vista{
      * Aunque en el diagrama que acompaña al enunciado de la tarea el método constructor aparece como público, el patrón Singleton
      * requiere que sea de tipo privado
      */
-    private VistaGrafica(){
-
+    public VistaGrafica(){
+        getInstancia();
     }
 
     public VistaGrafica getInstancia(){
