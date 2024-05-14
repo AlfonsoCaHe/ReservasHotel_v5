@@ -61,7 +61,7 @@ public class Huespedes implements IHuespedes {
         }
     }
 
-    /*El m�todo buscar devolver� un hu�sped si este se encuentra en la colecci�n y null en caso contrario.*/
+    /*El método buscar devolver� un hu�sped si este se encuentra en la colecci�n y null en caso contrario.*/
     public Huesped buscar(Huesped huesped){
         if(huesped == null)
             throw new NullPointerException("ERROR: No se puede buscar un hu�sped nulo.");
@@ -79,7 +79,7 @@ public class Huespedes implements IHuespedes {
         return huespedEncontrado;
     }
 
-    /*El m�todo borrar, si el hu�sped se encuentra en la colecci�n, lo borrar� y desplazar� los elementos hacia la izquierda para
+    /*El método borrar, si el hu�sped se encuentra en la colecci�n, lo borrar� y desplazar� los elementos hacia la izquierda para
     dejar el array compactado.*/
     public void borrar(Huesped huesped)throws OperationNotSupportedException{
         try{

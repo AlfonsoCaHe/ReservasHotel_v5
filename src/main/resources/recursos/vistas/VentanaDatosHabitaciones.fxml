@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="400.00" maxWidth="800.00" minHeight="400.0" minWidth="400.00" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.reservashotel.vista.grafica.controladores.ControladorVentanaDatosHabitaciones">
+   <children>
+      <Label fx:id="lTitulo" alignment="CENTER" layoutX="9.0" layoutY="14.0" prefHeight="67.0" prefWidth="582.0" text="GESTIÓN DE HABITACIONES">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="cbTipoHabitacion" layoutX="14.0" layoutY="87.0" onAction="#actualizarInterfaz" prefHeight="26.0" prefWidth="74.0" />
+      <Label fx:id="lPlanta" layoutX="105.0" layoutY="92.0" text="Planta" />
+      <TextField fx:id="tfPlanta" layoutX="145.0" layoutY="88.0" prefHeight="26.0" prefWidth="33.0" />
+      <Label fx:id="lPuerta" layoutX="187.0" layoutY="92.0" text="Puerta" />
+      <TextField fx:id="tfPuerta" layoutX="227.0" layoutY="88.0" prefHeight="26.0" prefWidth="33.0" />
+      <Label fx:id="lPrecio" layoutX="270.0" layoutY="92.0" text="Precio" />
+      <TextField fx:id="tfPrecio" layoutX="310.0" layoutY="88.0" prefHeight="26.0" prefWidth="74.0" />
+      <Label fx:id="lNumCamasIndividuales" layoutX="37.0" layoutY="127.0" text="Camas Individuales" />
+      <Label fx:id="lNumCamasDobles" layoutX="189.0" layoutY="127.0" text="Camas Dobles" />
+      <Label fx:id="lNumBanos" layoutX="325.0" layoutY="127.0" text="Baños" />
+      <TextField fx:id="tfNumCamasIndividuales" layoutX="145.0" layoutY="122.0" prefHeight="26.0" prefWidth="33.0" />
+      <TextField fx:id="tfNumCamasDobles" layoutX="270.0" layoutY="123.0" prefHeight="26.0" prefWidth="34.0" />
+      <TextField fx:id="tfNumBanos" layoutX="365.0" layoutY="123.0" prefHeight="26.0" prefWidth="34.0" />
+      <CheckBox fx:id="cbTieneJacuzzi" layoutX="413.0" layoutY="126.0" mnemonicParsing="false" selected="true" text="Jacuzzi" />
+      <TextField fx:id="tfMaxNumPersonas" editable="false" layoutX="553.0" layoutY="88.0" prefHeight="26.0" prefWidth="34.0" />
+      <Label fx:id="lNumMaxPersonas" layoutX="394.0" layoutY="91.0" text="Número Máximo de Personas" />
+      <TableView fx:id="tvHabitaciones" layoutY="200.0" prefHeight="152.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="colIdentificador" prefWidth="33.600006103515625" text="ID" />
+          <TableColumn fx:id="colTipo" prefWidth="55.199951171875" text="Tipo" />
+            <TableColumn fx:id="colPlanta" prefWidth="43.20001220703125" text="Planta" />
+            <TableColumn fx:id="colPuerta" prefWidth="44.0" text="Puerta" />
+            <TableColumn fx:id="colPrecio" prefWidth="48.800048828125" text="Precio" />
+            <TableColumn fx:id="colCamasIndividuales" prefWidth="116.79998779296875" text="Camas Individuales" />
+            <TableColumn fx:id="colCamasDobles" prefWidth="87.199951171875" text="Camas Dobles" />
+            <TableColumn fx:id="colNumBanos" prefWidth="41.5999755859375" text="Baños" />
+            <TableColumn fx:id="colTieneJacuzzi" prefWidth="69.59991455078125" text="Jacuzzi" />
+        </columns>
+      </TableView>
+      <Button fx:id="bInsertar" layoutX="14.0" layoutY="164.0" mnemonicParsing="false" onAction="#insertarHabitacion" prefHeight="26.0" prefWidth="74.0" text="Insertar" />
+      <Button fx:id="bBuscar" layoutX="105.0" layoutY="163.0" mnemonicParsing="false" onAction="#buscarHabitacion" prefHeight="26.0" prefWidth="74.0" text="Buscar" />
+      <TextField fx:id="tfIdentificador" layoutX="186.0" layoutY="164.0" prefHeight="26.0" prefWidth="42.0" />
+      <Button fx:id="bBorrar" layoutX="265.0" layoutY="359.0" mnemonicParsing="false" onAction="#borrarHabitacion" prefHeight="26.0" prefWidth="74.0" text="Borrar" />
+      <TextField fx:id="tfTipoHabitacion" layoutX="420.0" layoutY="164.0" prefHeight="26.0" prefWidth="74.0" />
+      <Label fx:id="lBuscarTipo" layoutX="325.0" layoutY="168.0" text="Buscar por Tipo" />
+      <Button fx:id="bBuscarTipo" layoutX="502.0" layoutY="163.0" mnemonicParsing="false" onAction="#filtrarTipoHabitacion" prefHeight="26.0" prefWidth="83.0" text="Buscar Tipo" />
+   </children>
+</AnchorPane>

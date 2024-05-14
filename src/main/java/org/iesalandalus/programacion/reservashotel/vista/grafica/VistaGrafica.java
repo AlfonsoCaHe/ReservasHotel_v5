@@ -13,12 +13,12 @@ public class VistaGrafica extends Vista {
      * requiere que sea de tipo privado
      */
     public VistaGrafica(){
-        getInstancia();
+
     }
 
-    public VistaGrafica getInstancia(){
-        if(this.instancia == null) {
-            this.instancia = new VistaGrafica();
+    public static VistaGrafica getInstancia(){
+        if(instancia == null) {
+            instancia = new VistaGrafica();
         }
         return instancia;
     }
@@ -30,7 +30,7 @@ public class VistaGrafica extends Vista {
 
     @Override
     public Controlador getControlador() {
-        return null;
+        return this.controlador;
     }
 
     @Override

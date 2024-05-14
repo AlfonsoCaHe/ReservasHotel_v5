@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.reservashotel.vista.grafica;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -20,10 +21,12 @@ public class LanzadorVentanaPrincipal extends Application {
 
     public void start(Stage escenarioPrincipal){
         try {
-            VBox raiz = FXMLLoader.load(LocalizadorRecursos.class.getResource("vistas/VentanaPrincipal.fxml"));
-
+            FXMLLoader fxmlLoader = new FXMLLoader(LocalizadorRecursos.class.getResource("/recursos/vistas/VentanaPrincipal.fxml"));
+            Parent raiz=fxmlLoader.load();
             Scene scene = new Scene(raiz);
+            escenarioPrincipal.setTitle("Reservas Hotel V.5");
             escenarioPrincipal.setScene(scene);
+            escenarioPrincipal.setOnCloseRequest(e->confirmarSalida(escenarioPrincipal,e));
             escenarioPrincipal.show();
         } catch(Exception e) {
             e.printStackTrace();
@@ -44,6 +47,7 @@ public class LanzadorVentanaPrincipal extends Application {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == bSi) {
             escenarioPrincipal.close();
+            System.exit(0);
         } else {
             e.consume();
         }

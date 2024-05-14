@@ -5,7 +5,7 @@ import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Reserva;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
-import org.iesalandalus.programacion.reservashotel.vista.texto.VistaTexto;
+import org.iesalandalus.programacion.reservashotel.vista.Vista;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDateTime;
@@ -13,15 +13,15 @@ import java.util.ArrayList;
 
 public class Controlador {
     private IModelo modelo;
-    private VistaTexto vistaTexto;
+    private Vista vista;
 
-    public Controlador(IModelo modelo, VistaTexto vista) {
+    public Controlador(IModelo modelo, Vista vista) {
         try {
             if (modelo == null || vista == null) {
                 throw new NullPointerException("ERROR: El modelo y la vista no pueden ser nulos.");
             }
             this.modelo = modelo;
-            this.vistaTexto = vista;
+            this.vista = vista;
             vista.setControlador(this);
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
@@ -30,12 +30,12 @@ public class Controlador {
 
     public void comenzar() {
         modelo.comenzar();
-        vistaTexto.comenzar();
+        vista.comenzar();
     }
 
     public void terminar() {
         modelo.terminar();
-        vistaTexto.terminar();
+        vista.terminar();
     }
 
     public void insertar(Huesped huesped) throws OperationNotSupportedException {
